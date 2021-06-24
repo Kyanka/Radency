@@ -1,29 +1,29 @@
 const chooseBestDistance = (t, k, ls) => {
     //myCodeStart
-    const isPositive = (n) => { return n > 0;}  //function to check if items are positive
-    const isInt = (n) => { return (n ^ 0) === n;}    //function to check if items are integer
+    const isPositive = (n) => { return n > 0;}         //function to check if items are positive
+    const isInt = (n) => { return (n ^ 0) === n;}       //function to check if items are integer
     if (k <= ls.length && k >= 1 && ls.length >= 1 && ls.every(isPositive) && ls.every(isInt)) { // initial check of input
-    let a = ls;                     //replication of ls to avoid changes of initial array
-    a.sort();                       //sort array to minimise iterations
-    const s = (a, b) => a + b;      //function of sum
-        let cities = [];            //array for saving best distances
-        let c = []                  //array for saving current distances
-
-        for (let j = 0; j <= ls.length - 1; j++) {              //cycle for finding best distance triple set
+        let arr = ls;                   //replication of ls to avoid changes of initial array
+        arr.sort();                     //sort array to minimise iterations
+    const s = (a, b) => a + b;          //function of sum
+        let cities = [];                //array for saving best distances
+        for (let j = 0; j <= arr.length - 1; j++) {                 //cycle for finding best distance triple set
+            let c = []                                              //array for saving current distances
             let i = j
-            for (i; c.length < k && i <= ls.length - 1; i++) {  //cycle for finding distance sets
-                let sumMiles = c.reduce(s, 0);                  //current sum
-                let item = ls[ls.length - 1 - i];               //current item of array
+            for (i; c.length <= k && i <= arr.length - 1; i++) {    //cycle for finding distance sets
+                let sumMiles = c.reduce(s, 0);                      //current sum
+                let item = arr[arr.length - 1 - i];                 //current item of array
                 if (sumMiles < t && sumMiles + item <= t) {
-                    c.push(item);                               //creation of set
+                    c.push(item);                                   //creation of set
                 }
+
             }
             if (c.reduce(s, 0) >= cities.reduce(s, 0) && c.reduce(s, 0) <= t && c.length === k) {
-                cities = c;                                     //creation of best triple set
-                c = [];
+                cities = c;                                         //creation of best triple set
+
             }
         }
-        return cities.reduce(s, 0); // return best distance
+        return cities.reduce(s, 0)                                  // return best distance
     }
     //myCodeEnd
     return null;
