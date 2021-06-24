@@ -1,11 +1,15 @@
 const chooseBestDistance = (t, k, ls) => {
     //myCodeStart
-    const isPositive = (n) => { return n > 0;}         //function to check if items are positive
-    const isInt = (n) => { return (n ^ 0) === n;}       //function to check if items are integer
+    const isPositive = (n) => {
+        return n > 0;
+    }         //function to check if items are positive
+    const isInt = (n) => {
+        return (n ^ 0) === n;
+    }       //function to check if items are integer
     if (k <= ls.length && k >= 1 && ls.length >= 1 && ls.every(isPositive) && ls.every(isInt)) { // initial check of input
         let arr = ls;                   //replication of ls to avoid changes of initial array
         arr.sort();                     //sort array to minimise iterations
-    const s = (a, b) => a + b;          //function of sum
+        const s = (a, b) => a + b;      //function of sum
         let cities = [];                //array for saving best distances
         for (let j = 0; j <= arr.length - 1; j++) {                 //cycle for finding best distance triple set
             let c = []                                              //array for saving current distances
@@ -16,14 +20,13 @@ const chooseBestDistance = (t, k, ls) => {
                 if (sumMiles < t && sumMiles + item <= t) {
                     c.push(item);                                   //creation of set
                 }
-
             }
             if (c.reduce(s, 0) >= cities.reduce(s, 0) && c.reduce(s, 0) <= t && c.length === k) {
                 cities = c;                                         //creation of best triple set
-
             }
         }
-        return cities.reduce(s, 0)                                  // return best distance
+        if (cities.length === k)
+            return cities.reduce(s, 0)                              // return best distance
     }
     //myCodeEnd
     return null;
@@ -31,4 +34,5 @@ const chooseBestDistance = (t, k, ls) => {
 
 chooseBestDistance(174, 3, [51, 56, 58, 59, 61]); //173
 chooseBestDistance(163, 3, [50]); // null
+
 
