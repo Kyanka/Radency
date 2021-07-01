@@ -1,0 +1,7 @@
+#app{
+    position: relative;
+}
+#content-box{
+    position: absolute;
+    left: 200px;
+}
